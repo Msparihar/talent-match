@@ -2,7 +2,6 @@
 
 import { motion } from "framer-motion";
 import { Brain, Target, BarChart3, Users } from "lucide-react";
-import Image from "next/image";
 
 interface Feature {
   title: string;

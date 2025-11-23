@@ -24,7 +24,7 @@ export function AuthDialog({ open, onOpenChange, defaultTab = "signin" }: AuthDi
   const [isLoading, setIsLoading] = useState(false);
   const [activeTab, setActiveTab] = useState(defaultTab);
 
-  const handleGoogleAuth = async (isSignUp: boolean) => {
+  const handleGoogleAuth = async () => {
     setIsLoading(true);
     try {
       await signIn.social({
@@ -64,7 +64,7 @@ export function AuthDialog({ open, onOpenChange, defaultTab = "signin" }: AuthDi
               </div>
 
               <Button
-                onClick={() => handleGoogleAuth(false)}
+                onClick={() => handleGoogleAuth()}
                 disabled={isLoading}
                 size="lg"
                 className="w-full"
@@ -112,7 +112,7 @@ export function AuthDialog({ open, onOpenChange, defaultTab = "signin" }: AuthDi
               </div>
 
               <Button
-                onClick={() => handleGoogleAuth(true)}
+                onClick={() => handleGoogleAuth()}
                 disabled={isLoading}
                 size="lg"
                 className="w-full"
