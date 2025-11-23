@@ -1,6 +1,6 @@
-# Agentic Coding Boilerplate
+# Talent Match
 
-A complete agentic coding boilerplate with authentication, PostgreSQL database, AI chat functionality, and modern UI components - perfect for building AI-powered applications and autonomous agents.
+A complete agentic coding application with authentication, PostgreSQL database, AI chat functionality, and modern UI components - perfect for building AI-powered talent matching and recruitment applications.
 
 ## 🚀 Features
 
@@ -11,19 +11,15 @@ A complete agentic coding boilerplate with authentication, PostgreSQL database, 
 - **⚡ Modern Stack**: Next.js 15, React 19, TypeScript
 - **📱 Responsive**: Mobile-first design approach
 
-## 🎥 Video Tutorial
+## 📸 Screenshots
 
-Watch the complete walkthrough of this agentic coding template:
+### Landing Page
 
-[![Agentic Coding Boilerplate Tutorial](https://img.youtube.com/vi/T0zFZsr_d0Q/maxresdefault.jpg)](https://youtu.be/T0zFZsr_d0Q)
+![Landing Page](./assets/landing-page.png)
 
-<a href="https://youtu.be/T0zFZsr_d0Q" target="_blank" rel="noopener noreferrer">🔗 Watch on YouTube</a>
+### Application Dashboard
 
-## ☕ Support This Project
-
-If this boilerplate helped you build something awesome, consider buying me a coffee!
-
-[![Buy me a coffee](https://img.shields.io/badge/Buy_Me_A_Coffee-FFDD00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black)](https://www.buymeacoffee.com/leonvanzyl)
+![Application](./assets/app.png)
 
 ## 📋 Prerequisites
 
@@ -40,8 +36,8 @@ Before you begin, ensure you have the following installed on your machine:
 **Option A: Clone with Git**
 
 ```bash
-git clone https://github.com/leonvanzyl/agentic-coding-starter-kit.git
-cd agentic-coding-starter-kit
+git clone https://github.com/Msparihar/talent-match.git
+cd talent-match
 ```
 
 **Option B: Download ZIP**
@@ -50,7 +46,7 @@ Download the repository as a ZIP file and extract it to your desired location.
 ### 2. Install Dependencies
 
 ```bash
-npm install
+bun install
 ```
 
 ### 3. Environment Setup
@@ -87,14 +83,14 @@ NEXT_PUBLIC_APP_URL="http://localhost:3000"
 Generate and run database migrations:
 
 ```bash
-npm run db:generate
-npm run db:migrate
+bun run db:generate
+bun run db:migrate
 ```
 
 ### 5. Start the Development Server
 
 ```bash
-npm run dev
+bun run dev
 ```
 
 Your application will be available at [http://localhost:3000](http://localhost:3000)
@@ -154,16 +150,16 @@ src/
 ## 🔧 Available Scripts
 
 ```bash
-npm run dev          # Start development server with Turbopack
-npm run build        # Build for production
-npm run start        # Start production server
-npm run lint         # Run ESLint
-npm run db:generate  # Generate database migrations
-npm run db:migrate   # Run database migrations
-npm run db:push      # Push schema changes to database
-npm run db:studio    # Open Drizzle Studio (database GUI)
-npm run db:dev       # Push schema for development
-npm run db:reset     # Reset database (drop all tables)
+bun run dev          # Start development server with Turbopack
+bun run build        # Build for production
+bun run start        # Start production server
+bun run lint         # Run ESLint
+bun run db:generate  # Generate database migrations
+bun run db:migrate   # Run database migrations
+bun run db:push      # Push schema changes to database
+bun run db:studio    # Open Drizzle Studio (database GUI)
+bun run db:dev       # Push schema for development
+bun run db:reset     # Reset database (drop all tables)
 ```
 
 ## 📖 Pages Overview
@@ -203,12 +199,6 @@ Ensure these are set in your production environment:
 - `OPENAI_MODEL` - OpenAI model name (optional, defaults to gpt-5-mini)
 - `NEXT_PUBLIC_APP_URL` - Your production domain
 
-## 🎥 Tutorial Video
-
-Watch my comprehensive tutorial on how to use this agentic coding boilerplate to build AI-powered applications:
-
-<a href="https://youtu.be/T0zFZsr_d0Q" target="_blank" rel="noopener noreferrer">📺 YouTube Tutorial - Building with Agentic Coding Boilerplate</a>
-
 ## 🤝 Contributing
 
 1. Fork this repository
@@ -225,7 +215,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 If you encounter any issues:
 
-1. Check the [Issues](https://github.com/leonvanzyl/agentic-coding-starter-kit/issues) section
+1. Check the [Issues](https://github.com/Msparihar/talent-match/issues) section
 2. Review the documentation above
 3. Create a new issue with detailed information about your problem
 
