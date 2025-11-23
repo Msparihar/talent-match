@@ -1,0 +1,66 @@
+SARAH CHEN
+Full Stack Developer
+sarah.chen@email.com | (555) 987-6543 | San Francisco, CA
+LinkedIn: linkedin.com/in/sarahchen | GitHub: github.com/sarahchen
+
+SUMMARY
+Passionate full-stack developer with 4 years of experience building modern web applications. Strong foundation in React and Node.js with a focus on creating intuitive user experiences and scalable backend systems.
+
+WORK EXPERIENCE
+
+Full Stack Developer | CloudTech Inc. | San Francisco, CA | 2021-Present
+• Developed responsive web applications using React, TypeScript, and Material-UI
+• Built RESTful APIs with Node.js and Express, serving 50k+ daily active users
+• Implemented real-time features using WebSockets and Socket.io
+• Optimized database queries in PostgreSQL, improving response times by 30%
+• Collaborated with UX designers to implement pixel-perfect interfaces
+• Participated in Agile sprints, daily standups, and sprint retrospectives
+• Tech Stack: React, TypeScript, Node.js, Express, PostgreSQL, AWS, Docker
+
+Software Developer | StartupXYZ | Remote | 2020-2021
+• Created internal tools dashboard using React and Redux for company operations
+• Developed backend services using Python Flask and MongoDB
+• Integrated Stripe payment processing and SendGrid email services
+• Wrote unit tests with Jest and integration tests with Supertest
+• Tech Stack: React, Python, Flask, MongoDB, Redis, Heroku
+
+Junior Developer | WebDev Agency | Los Angeles, CA | 2019-2020
+• Built client websites using HTML, CSS, JavaScript, and jQuery
+• Maintained and updated WordPress sites for small businesses
+• Implemented responsive designs using Bootstrap framework
+• Tech Stack: JavaScript, jQuery, PHP, MySQL, WordPress
+
+EDUCATION
+Bachelor of Science in Software Engineering
+California State University | 2015-2019
+GPA: 3.5/4.0
+Dean's List (4 semesters)
+
+TECHNICAL SKILLS
+Languages: JavaScript, TypeScript, Python, HTML5, CSS3, SQL
+Frontend: React, Redux, Next.js, Material-UI, Styled Components
+Backend: Node.js, Express, Flask, Django, REST APIs
+Databases: PostgreSQL, MySQL, MongoDB, Redis
+DevOps: Docker, AWS (EC2, S3), Git, GitHub Actions, Heroku
+Testing: Jest, React Testing Library, Supertest, Cypress
+
+PROJECTS
+• Task Management App (2023)
+  - Built with React, TypeScript, Node.js, and PostgreSQL
+  - Features: drag-and-drop interface, real-time collaboration, file attachments
+  - Deployed on AWS with automated CI/CD pipeline
+
+• Recipe Sharing Platform (2022)
+  - Social platform for sharing and discovering recipes
+  - React frontend with Node.js backend, MongoDB database
+  - Implements user authentication, image uploads, and search functionality
+
+CERTIFICATIONS
+• AWS Cloud Practitioner (2023)
+• Meta React Developer Certificate (2022)
+
+ADDITIONAL INFORMATION
+• Active contributor to open source projects (300+ GitHub contributions)
+• Volunteer coding instructor for Girls Who Code
+• Bilingual: English (native), Mandarin (fluent)
+• Interests: UI/UX design, web accessibility, mentoring

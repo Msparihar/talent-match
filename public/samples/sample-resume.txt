@@ -1,0 +1,69 @@
+JOHN DOE
+Senior Software Engineer
+johndoe@email.com | +1 (555) 123-4567 | LinkedIn: linkedin.com/in/johndoe
+Portfolio: johndoe.dev | GitHub: github.com/johndoe
+
+PROFESSIONAL SUMMARY
+Full-stack software engineer with 7+ years of experience building scalable web applications. Specialized in React, Node.js, and cloud infrastructure. Proven track record of leading teams and delivering high-impact features for enterprise SaaS products.
+
+WORK EXPERIENCE
+
+Senior Software Engineer | Tech Corp | San Francisco, CA | 2020-Present
+• Led development of enterprise SaaS platform serving 5000+ customers using React and Node.js
+• Managed and mentored team of 5 developers, conducted code reviews and pair programming sessions
+• Reduced API response time by 40% through database query optimization and caching strategies
+• Implemented CI/CD pipeline with Docker, Kubernetes, and AWS, reducing deployment time by 60%
+• Architected microservices backend handling 1M+ daily requests with 99.9% uptime
+• Technologies: React, TypeScript, Node.js, Express, PostgreSQL, Redis, AWS, Docker, Kubernetes
+
+Software Engineer | StartupCo | Austin, TX | 2018-2020
+• Built customer-facing dashboard using React, Redux, and D3.js for data visualization
+• Developed RESTful APIs using Node.js, Express, and MongoDB
+• Integrated third-party payment systems (Stripe) and authentication (Auth0)
+• Improved application performance by 50% through code splitting and lazy loading
+• Collaborated with product team using Agile/Scrum methodology
+• Technologies: React, Redux, Node.js, Express, MongoDB, Redis, AWS
+
+Junior Developer | WebAgency | Dallas, TX | 2017-2018
+• Created responsive websites using HTML5, CSS3, JavaScript, and Bootstrap
+• Maintained WordPress sites for 20+ clients, implementing custom plugins
+• Optimized website loading times, achieving 95+ Google PageSpeed scores
+• Technologies: JavaScript, jQuery, PHP, MySQL, WordPress
+
+EDUCATION
+Bachelor of Science in Computer Science
+State University | Austin, TX | 2013-2017
+GPA: 3.7/4.0
+Relevant Coursework: Data Structures, Algorithms, Database Systems, Software Engineering
+
+TECHNICAL SKILLS
+Languages: JavaScript, TypeScript, Python, SQL, HTML5, CSS3
+Frontend: React, Redux, Next.js, Vue.js, Tailwind CSS, Bootstrap
+Backend: Node.js, Express, Django, FastAPI, GraphQL
+Databases: PostgreSQL, MySQL, MongoDB, Redis
+Cloud & DevOps: AWS (EC2, S3, Lambda, RDS), Docker, Kubernetes, CI/CD, Jenkins
+Tools & Methods: Git, GitHub, Jira, Figma, Agile, Scrum, TDD
+
+CERTIFICATIONS & ACHIEVEMENTS
+• AWS Certified Solutions Architect - Associate (2022)
+• AWS Certified Developer - Associate (2021)
+• React Advanced Certification - Meta (2023)
+• Won company-wide hackathon for innovation (2022)
+• Speaker at React Conference 2023 - "Building Scalable React Applications"
+• Open source contributor - 1000+ GitHub stars across projects
+
+PROJECTS
+• Personal Finance Tracker (2023) - Full-stack app with React, Node.js, PostgreSQL
+  • Deployed on AWS with Docker, serving 500+ active users
+  • Implemented real-time budget tracking and expense categorization
+
+• E-commerce Platform (2022) - Microservices architecture
+  • Built with React, Node.js, MongoDB, and RabbitMQ
+  • Handles 10k+ products with advanced search and filtering
+
+LEADERSHIP & SOFT SKILLS
+• Team Leadership: Managed 5-person engineering team, conducted 1-on-1s and performance reviews
+• Mentorship: Mentored 3 junior developers, improving their code quality and career growth
+• Communication: Presented technical concepts to non-technical stakeholders
+• Problem Solving: Debugged complex production issues under pressure
+• Collaboration: Worked effectively with cross-functional teams (Product, Design, QA)
