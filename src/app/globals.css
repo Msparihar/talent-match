@@ -1,12 +1,12 @@
-/* Import Inter font family - Linear's typography choice */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:wght@600;700&display=swap');
+/* Typography: Inter - Linear's font choice */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
 @import "tailwindcss";
 
 @theme inline {
-  /* Font families */
+  /* Font families - Inter like Linear */
   --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
-  --font-display: 'Inter Tight', 'Inter', sans-serif;
+  --font-display: 'Inter', system-ui, -apple-system, sans-serif;
 
   /* Color tokens */
   --color-background: var(--background);
@@ -86,59 +86,59 @@
 }
 
 .dark {
-  /* Linear-inspired dark mode - warm blacks and monochrome */
+  /* Precision Noir - deep blacks with electric cyan accent */
   /* Primary surfaces */
-  --background: oklch(0.12 0.006 286);  /* Woodsmoke-inspired warm black */
-  --foreground: oklch(0.97 0 0);        /* Near white for text */
+  --background: oklch(0.09 0.005 260);  /* Deep ink black */
+  --foreground: oklch(0.95 0.01 80);    /* Warm white */
 
-  /* Card surfaces - slightly elevated */
-  --card: oklch(0.16 0.006 286);
-  --card-foreground: oklch(0.97 0 0);
+  /* Card surfaces - subtle elevation */
+  --card: oklch(0.12 0.008 260);
+  --card-foreground: oklch(0.95 0.01 80);
 
   /* Popovers and modals */
-  --popover: oklch(0.18 0.006 286);
-  --popover-foreground: oklch(0.97 0 0);
+  --popover: oklch(0.14 0.008 260);
+  --popover-foreground: oklch(0.95 0.01 80);
 
-  /* Primary accent - indigo/purple for key actions */
-  --primary: oklch(0.55 0.15 275);
-  --primary-foreground: oklch(0.99 0 0);
+  /* Primary accent - electric cyan for key actions */
+  --primary: oklch(0.75 0.18 195);
+  --primary-foreground: oklch(0.12 0.005 260);
 
   /* Secondary surfaces */
-  --secondary: oklch(0.22 0.006 286);
-  --secondary-foreground: oklch(0.97 0 0);
+  --secondary: oklch(0.18 0.006 260);
+  --secondary-foreground: oklch(0.95 0.01 80);
 
-  /* Muted elements - Oslo Gray inspired */
-  --muted: oklch(0.2 0.006 286);
-  --muted-foreground: oklch(0.65 0.01 286);
+  /* Muted elements */
+  --muted: oklch(0.16 0.006 260);
+  --muted-foreground: oklch(0.60 0.02 260);
 
-  /* Accent surfaces */
-  --accent: oklch(0.22 0.006 286);
-  --accent-foreground: oklch(0.97 0 0);
+  /* Accent surfaces - warm amber for highlights */
+  --accent: oklch(0.75 0.15 70);
+  --accent-foreground: oklch(0.12 0.005 260);
 
   /* Destructive */
-  --destructive: oklch(0.6 0.2 25);
+  --destructive: oklch(0.65 0.22 25);
 
-  /* Borders - subtle transparency */
-  --border: oklch(1 0 0 / 0.08);
-  --input: oklch(1 0 0 / 0.12);
-  --ring: oklch(0.55 0.15 275 / 0.5);
+  /* Borders - crisp lines */
+  --border: oklch(1 0 0 / 0.06);
+  --input: oklch(1 0 0 / 0.10);
+  --ring: oklch(0.75 0.18 195 / 0.5);
 
-  /* Charts - adjusted for dark mode */
-  --chart-1: oklch(0.55 0.2 275);
-  --chart-2: oklch(0.65 0.15 180);
-  --chart-3: oklch(0.75 0.18 70);
-  --chart-4: oklch(0.6 0.22 305);
-  --chart-5: oklch(0.65 0.2 20);
+  /* Charts - vibrant palette */
+  --chart-1: oklch(0.75 0.18 195);
+  --chart-2: oklch(0.75 0.15 70);
+  --chart-3: oklch(0.70 0.18 330);
+  --chart-4: oklch(0.70 0.15 145);
+  --chart-5: oklch(0.65 0.20 25);
 
-  /* Sidebar - same as background for seamless integration */
-  --sidebar: oklch(0.12 0.006 286);
-  --sidebar-foreground: oklch(0.97 0 0);
-  --sidebar-primary: oklch(0.55 0.15 275);
-  --sidebar-primary-foreground: oklch(0.99 0 0);
-  --sidebar-accent: oklch(0.2 0.006 286);
-  --sidebar-accent-foreground: oklch(0.97 0 0);
-  --sidebar-border: oklch(1 0 0 / 0.08);
-  --sidebar-ring: oklch(0.55 0.15 275 / 0.5);
+  /* Sidebar */
+  --sidebar: oklch(0.07 0.005 260);
+  --sidebar-foreground: oklch(0.95 0.01 80);
+  --sidebar-primary: oklch(0.75 0.18 195);
+  --sidebar-primary-foreground: oklch(0.12 0.005 260);
+  --sidebar-accent: oklch(0.14 0.006 260);
+  --sidebar-accent-foreground: oklch(0.95 0.01 80);
+  --sidebar-border: oklch(1 0 0 / 0.06);
+  --sidebar-ring: oklch(0.75 0.18 195 / 0.5);
 }
 
 @layer base {
@@ -154,7 +154,7 @@
     -moz-osx-font-smoothing: grayscale;
   }
 
-  /* Typography hierarchy with Inter Display */
+  /* Typography hierarchy */
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-display);
     font-weight: 600;
@@ -378,5 +378,127 @@
 
   .animate-pulse-dot {
     animation: pulse-dot 1.4s ease-in-out infinite;
+  }
+
+  /* Precision Noir utilities */
+  .text-gradient-cyan {
+    background: linear-gradient(135deg, oklch(0.75 0.18 195) 0%, oklch(0.65 0.15 210) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .text-gradient-warm {
+    background: linear-gradient(135deg, oklch(0.95 0.01 80) 0%, oklch(0.75 0.15 70) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Noise texture overlay */
+  .noise {
+    position: relative;
+  }
+
+  .noise::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    opacity: 0.03;
+    pointer-events: none;
+    mix-blend-mode: overlay;
+  }
+
+  /* Geometric line accents */
+  .line-accent {
+    position: relative;
+  }
+
+  .line-accent::after {
+    content: '';
+    position: absolute;
+    bottom: -0.5rem;
+    left: 0;
+    width: 3rem;
+    height: 2px;
+    background: oklch(0.75 0.18 195);
+  }
+
+  /* Editorial quote styling */
+  .editorial-quote {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 1.5rem;
+    line-height: 1.4;
+    position: relative;
+    padding-left: 1.5rem;
+    border-left: 2px solid oklch(0.75 0.18 195);
+  }
+
+  /* Refined card hover */
+  .card-refined {
+    background: oklch(0.12 0.008 260);
+    border: 1px solid oklch(1 0 0 / 0.06);
+    transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .card-refined:hover {
+    background: oklch(0.14 0.01 260);
+    border-color: oklch(0.75 0.18 195 / 0.3);
+    transform: translateY(-2px);
+  }
+
+  /* Glow effects */
+  .glow-cyan {
+    box-shadow: 0 0 40px oklch(0.75 0.18 195 / 0.15),
+                0 0 80px oklch(0.75 0.18 195 / 0.08);
+  }
+
+  .glow-amber {
+    box-shadow: 0 0 40px oklch(0.75 0.15 70 / 0.15),
+                0 0 80px oklch(0.75 0.15 70 / 0.08);
+  }
+
+  /* Staggered animation delays */
+  .stagger-1 { animation-delay: 0.1s; }
+  .stagger-2 { animation-delay: 0.2s; }
+  .stagger-3 { animation-delay: 0.3s; }
+  .stagger-4 { animation-delay: 0.4s; }
+  .stagger-5 { animation-delay: 0.5s; }
+  .stagger-6 { animation-delay: 0.6s; }
+
+  /* Fade in up animation */
+  @keyframes fade-in-up {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-fade-in-up {
+    animation: fade-in-up 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    opacity: 0;
+  }
+
+  /* Scale in animation */
+  @keyframes scale-in {
+    from {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  .animate-scale-in {
+    animation: scale-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    opacity: 0;
   }
 }

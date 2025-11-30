@@ -13,6 +13,7 @@ import { Spinner } from "@/components/ui/spinner";
 import { toast } from "sonner";
 import { useSessionStore } from "@/store/session-store";
 import { useRouter, useParams } from "next/navigation";
+import { useQuery } from "@tanstack/react-query";
 
 const H1: React.FC<React.HTMLAttributes<HTMLHeadingElement>> = (props) => (
   <h1 className="mt-2 mb-3 text-2xl font-bold" {...props} />
@@ -149,6 +150,50 @@ interface AnalysisType {
   summary: string;
 }
 
+interface SessionData {
+  resume: DocumentType;
+  jobDescription: DocumentType;
+  analysis: AnalysisType | null;
+}
+
+async function fetchSessionData(sessionId: string): Promise<SessionData> {
+  const sessionResponse = await fetch(`/api/sessions/${sessionId}`);
+  if (!sessionResponse.ok) {
+    throw new Error("Session not found");
+  }
+
+  const sessionData = await sessionResponse.json();
+
+  const resume: DocumentType = {
+    id: sessionData.resume.id,
+    fileName: sessionData.resume.fileName,
+    fileType: sessionData.resume.fileType,
+    mimeType: "",
+    createdAt: new Date(),
+  };
+
+  const jobDescription: DocumentType = {
+    id: sessionData.jobDescription.id,
+    fileName: sessionData.jobDescription.fileName,
+    fileType: sessionData.jobDescription.fileType,
+    mimeType: "",
+    createdAt: new Date(),
+  };
+
+  const analysis: AnalysisType | null =
+    sessionData.session.matchScore !== null
+      ? {
+          matchScore: sessionData.session.matchScore,
+          strengths: sessionData.session.strengths || [],
+          gaps: sessionData.session.gaps || [],
+          insights: sessionData.session.insights || [],
+          summary: sessionData.session.summary || "",
+        }
+      : null;
+
+  return { resume, jobDescription, analysis };
+}
+
 export default function ChatSessionPage() {
   const { data: session, isPending } = useSession();
   const router = useRouter();
@@ -157,81 +202,39 @@ export default function ChatSessionPage() {
 
   const { createSession } = useSessionStore();
 
-  const [resume, setResume] = useState<DocumentType | null>(null);
-  const [jobDescription, setJobDescription] = useState<DocumentType | null>(null);
-  const [analysis, setAnalysis] = useState<AnalysisType | null>(null);
-  const [loading, setLoading] = useState(true);
-
   // Manual message state since @ai-sdk/react's useChat doesn't support query params
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [messages, setMessages] = useState<any[]>([]);
   const [isStreaming, setIsStreaming] = useState(false);
 
-  // Load session data when sessionId changes
+  const {
+    data: sessionData,
+    isLoading: loading,
+    error,
+  } = useQuery({
+    queryKey: ["session", sessionId],
+    queryFn: () => fetchSessionData(sessionId),
+    enabled: Boolean(sessionId && session?.user),
+  });
+
+  // Handle query error
   useEffect(() => {
-    if (sessionId && session?.user) {
-      loadSessionData();
+    if (error) {
+      toast.error("Session not found");
+      router.push("/chat");
     }
-  }, [sessionId, session?.user]);
+  }, [error, router]);
 
-  const loadSessionData = async () => {
-    setLoading(true);
-    try {
-      // Fetch session details
-      const sessionResponse = await fetch(`/api/sessions/${sessionId}`);
-      if (!sessionResponse.ok) {
-        toast.error('Session not found');
-        router.push('/chat');
-        return;
-      }
-
-      const sessionData = await sessionResponse.json();
-
-      // Update Zustand store
+  // Update Zustand store when session data loads
+  useEffect(() => {
+    if (sessionData && sessionId) {
       createSession(sessionId);
-
-      // Load resume and job description
-      setResume({
-        id: sessionData.resume.id,
-        fileName: sessionData.resume.fileName,
-        fileType: sessionData.resume.fileType,
-        mimeType: '',
-        createdAt: new Date(),
-      });
-
-      setJobDescription({
-        id: sessionData.jobDescription.id,
-        fileName: sessionData.jobDescription.fileName,
-        fileType: sessionData.jobDescription.fileType,
-        mimeType: '',
-        createdAt: new Date(),
-      });
-
-      // Set analysis if available
-      if (sessionData.session.matchScore !== null) {
-        setAnalysis({
-          matchScore: sessionData.session.matchScore,
-          strengths: sessionData.session.strengths || [],
-          gaps: sessionData.session.gaps || [],
-          insights: sessionData.session.insights || [],
-          summary: sessionData.session.summary || '',
-        });
-      }
-
-      // Load messages
-      const messagesResponse = await fetch(`/api/sessions/${sessionId}/messages?limit=50`);
-      if (messagesResponse.ok) {
-        const messagesData = await messagesResponse.json();
-        console.log('Loaded messages:', messagesData.messages);
-      }
-    } catch (error) {
-      console.error('Error loading session:', error);
-      toast.error('Failed to load session');
-      router.push('/chat');
-    } finally {
-      setLoading(false);
     }
-  };
+  }, [sessionData, sessionId, createSession]);
+
+  const resume = sessionData?.resume ?? null;
+  const jobDescription = sessionData?.jobDescription ?? null;
+  const analysis = sessionData?.analysis ?? null;
 
   if (isPending || loading) {
     return (
@@ -417,7 +420,7 @@ export default function ChatSessionPage() {
                                 )
                               );
                             }
-                          } catch (e) {
+                          } catch {
                             // Skip invalid JSON
                           }
                         }

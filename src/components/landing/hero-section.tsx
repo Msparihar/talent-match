@@ -4,9 +4,10 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { ArrowRight, Play } from "lucide-react";
+import { ArrowRight, Sparkles } from "lucide-react";
 import { useSession } from "@/lib/auth-client";
 import { AuthDialog } from "@/components/auth/auth-dialog";
+import { MatchRadar } from "./match-radar";
 
 export function HeroSection() {
   const [authDialogOpen, setAuthDialogOpen] = useState(false);
@@ -21,197 +22,136 @@ export function HeroSection() {
   };
 
   return (
-    <section className="relative min-h-[90vh] flex items-center overflow-hidden">
-      {/* Background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-primary/5" />
+    <section className="relative min-h-screen flex items-center overflow-hidden noise">
+      {/* Ambient glow - asymmetric placement */}
+      <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-primary/8 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/3" />
+      <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-accent/6 rounded-full blur-[100px] translate-y-1/2 -translate-x-1/3" />
 
-      <div className="container mx-auto px-4 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          {/* Left side - Text content */}
+      {/* Grid overlay for texture */}
+      <div
+        className="absolute inset-0 opacity-[0.02]"
+        style={{
+          backgroundImage: `linear-gradient(rgba(255,255,255,.1) 1px, transparent 1px),
+                           linear-gradient(90deg, rgba(255,255,255,.1) 1px, transparent 1px)`,
+          backgroundSize: '64px 64px'
+        }}
+      />
+
+      <div className="container mx-auto px-6 md:px-8 lg:px-12 relative z-10">
+        <div className="max-w-5xl mx-auto lg:mx-0">
+          {/* Orchestrated reveal sequence */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
             className="space-y-8"
           >
-            {/* Trust badge */}
+            {/* Eyebrow with geometric accent */}
             <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.2 }}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20"
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.2, duration: 0.6 }}
+              className="flex items-center gap-4"
             >
-              <span className="text-sm text-muted-foreground">
-                Trusted by 1000+ recruiting teams
+              <div className="h-px w-12 bg-primary" />
+              <span className="text-sm font-medium tracking-widest uppercase text-primary">
+                AI-Powered Recruitment
               </span>
             </motion.div>
 
-            {/* Main headline */}
-            <div className="space-y-4">
-              <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight">
-                <span className="bg-gradient-to-r from-foreground via-foreground to-foreground/70 bg-clip-text text-transparent">
-                  AI-Powered Resume Screening
-                </span>
-              </h1>
-              <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-muted-foreground">
-                Find the Perfect Match
-              </h2>
+            {/* Main headline - dramatic serif typography */}
+            <div className="space-y-2">
+              <motion.h1
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3, duration: 0.8 }}
+                className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl tracking-tight"
+              >
+                <span className="text-foreground">Find talent</span>
+              </motion.h1>
+              <motion.h1
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4, duration: 0.8 }}
+                className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl tracking-tight"
+              >
+                <span className="text-gradient-cyan">that fits.</span>
+              </motion.h1>
             </div>
 
-            {/* Subheading */}
-            <p className="text-xl md:text-2xl text-muted-foreground max-w-2xl leading-relaxed">
-              Intelligent resume screening tool that matches candidates with job descriptions using advanced AI-powered analysis and semantic search.
-            </p>
-
-            {/* CTA buttons */}
-            <motion.div
+            {/* Subheading - refined and concise */}
+            <motion.p
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 0.4 }}
-              className="flex flex-col sm:flex-row gap-4"
+              transition={{ delay: 0.6, duration: 0.8 }}
+              className="text-xl md:text-2xl text-muted-foreground max-w-2xl leading-relaxed"
+            >
+              Intelligent resume screening powered by semantic AI.
+              Match candidates to roles with precision, not guesswork.
+            </motion.p>
+
+            {/* CTA group */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.8, duration: 0.6 }}
+              className="flex flex-col sm:flex-row gap-4 pt-4"
             >
               <Button
                 onClick={handleGetStarted}
                 disabled={isPending}
                 size="lg"
-                className="text-lg px-8 py-6 group"
+                className="text-base px-8 py-6 group glow-cyan"
               >
-                {session ? "Go to Dashboard" : "Get Started"}
-                <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform ml-2" />
+                <Sparkles className="h-4 w-4 mr-2" />
+                {session ? "Go to Dashboard" : "Start Free Trial"}
+                <ArrowRight className="h-4 w-4 ml-2 group-hover:translate-x-1 transition-transform" />
               </Button>
-              <Button asChild variant="outline" size="lg" className="text-lg px-8 py-6">
-                <Link href="#features" className="flex items-center gap-2">
-                  <Play className="h-5 w-5" />
-                  View Demo
+              <Button
+                asChild
+                variant="ghost"
+                size="lg"
+                className="text-base px-8 py-6 border border-border/50 hover:bg-card hover:border-primary/30"
+              >
+                <Link href="#features">
+                  See How It Works
                 </Link>
               </Button>
             </motion.div>
-
-            {/* Stats */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.6 }}
-              className="grid grid-cols-3 gap-8 pt-8 border-t border-border/50"
-            >
-              <div>
-                <div className="text-3xl font-bold text-primary">10K+</div>
-                <div className="text-sm text-muted-foreground">Resumes Processed</div>
-              </div>
-              <div>
-                <div className="text-3xl font-bold text-primary">95%</div>
-                <div className="text-sm text-muted-foreground">Accuracy Rate</div>
-              </div>
-              <div>
-                <div className="text-3xl font-bold text-primary">80%</div>
-                <div className="text-sm text-muted-foreground">Time Saved</div>
-              </div>
-            </motion.div>
           </motion.div>
 
-          {/* Right side - 3D Element */}
+          {/* Stats row - asymmetric layout with emphasis */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="relative hidden lg:block"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1, duration: 0.8 }}
+            className="mt-24 flex flex-wrap items-end gap-12 md:gap-20"
           >
-            {/* Animated gradient orb */}
-            <div className="relative aspect-square">
-              {/* Main orb */}
-              <motion.div
-                animate={{
-                  scale: [1, 1.1, 1],
-                  rotate: [0, 180, 360],
-                }}
-                transition={{
-                  duration: 20,
-                  repeat: Infinity,
-                  ease: "linear",
-                }}
-                className="absolute inset-0 rounded-full bg-gradient-to-br from-primary/30 via-primary/20 to-purple-500/30 blur-3xl"
-              />
-
-              {/* Secondary orb */}
-              <motion.div
-                animate={{
-                  scale: [1.1, 1, 1.1],
-                  rotate: [360, 180, 0],
-                }}
-                transition={{
-                  duration: 15,
-                  repeat: Infinity,
-                  ease: "linear",
-                }}
-                className="absolute inset-0 rounded-full bg-gradient-to-tl from-blue-500/20 via-primary/30 to-pink-500/20 blur-2xl"
-              />
-
-              {/* Floating cards */}
-              <motion.div
-                animate={{
-                  y: [0, -20, 0],
-                  rotate: [-5, 5, -5],
-                }}
-                transition={{
-                  duration: 6,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                }}
-                className="absolute top-1/4 left-1/4 w-48 h-32 bg-card border border-border rounded-lg shadow-2xl p-4 backdrop-blur-sm"
-              >
-                <div className="text-xs text-muted-foreground mb-2">Match Score</div>
-                <div className="text-3xl font-bold text-green-500">94%</div>
-                <div className="text-xs text-muted-foreground mt-2">Senior Developer</div>
-              </motion.div>
-
-              <motion.div
-                animate={{
-                  y: [0, 20, 0],
-                  rotate: [5, -5, 5],
-                }}
-                transition={{
-                  duration: 7,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                  delay: 0.5,
-                }}
-                className="absolute bottom-1/4 right-1/4 w-48 h-32 bg-card border border-border rounded-lg shadow-2xl p-4 backdrop-blur-sm"
-              >
-                <div className="text-xs text-muted-foreground mb-2">Skills Matched</div>
-                <div className="flex gap-1 flex-wrap">
-                  <span className="px-2 py-1 bg-primary/20 rounded text-xs">React</span>
-                  <span className="px-2 py-1 bg-primary/20 rounded text-xs">TypeScript</span>
-                  <span className="px-2 py-1 bg-primary/20 rounded text-xs">Node.js</span>
-                </div>
-              </motion.div>
-
-              <motion.div
-                animate={{
-                  y: [0, -15, 0],
-                  x: [0, 10, 0],
-                }}
-                transition={{
-                  duration: 5,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                  delay: 1,
-                }}
-                className="absolute top-1/2 right-0 w-40 h-28 bg-card border border-border rounded-lg shadow-2xl p-4 backdrop-blur-sm"
-              >
-                <div className="text-xs text-muted-foreground mb-2">AI Analysis</div>
-                <div className="space-y-1">
-                  <div className="h-2 bg-primary/30 rounded w-full" />
-                  <div className="h-2 bg-primary/30 rounded w-3/4" />
-                  <div className="h-2 bg-primary/30 rounded w-1/2" />
-                </div>
-              </motion.div>
+            <div className="space-y-1">
+              <div className="text-5xl md:text-6xl font-light text-gradient-cyan">10K+</div>
+              <div className="text-sm text-muted-foreground tracking-wide">Resumes analyzed</div>
+            </div>
+            <div className="space-y-1">
+              <div className="text-5xl md:text-6xl font-light text-foreground">95<span className="text-primary">%</span></div>
+              <div className="text-sm text-muted-foreground tracking-wide">Match accuracy</div>
+            </div>
+            <div className="space-y-1">
+              <div className="text-5xl md:text-6xl font-light text-foreground">4<span className="text-accent">x</span></div>
+              <div className="text-sm text-muted-foreground tracking-wide">Faster screening</div>
             </div>
           </motion.div>
         </div>
-      </div>
 
-      {/* Bottom fade */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent" />
+        {/* Interactive Match Radar */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 0.5, duration: 1, ease: [0.22, 1, 0.36, 1] }}
+          className="absolute right-8 top-1/2 -translate-y-1/2 hidden xl:block"
+        >
+          <MatchRadar />
+        </motion.div>
+      </div>
 
       {/* Auth Dialog */}
       <AuthDialog

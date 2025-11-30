@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 
 type DiagnosticsResponse = {
   timestamp: string;
@@ -27,29 +27,18 @@ type DiagnosticsResponse = {
   overallStatus: "ok" | "warn" | "error";
 };
 
+async function fetchDiagnostics(): Promise<DiagnosticsResponse> {
+  const res = await fetch("/api/diagnostics", { cache: "no-store" });
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  return res.json();
+}
+
 export function useDiagnostics() {
-  const [data, setData] = useState<DiagnosticsResponse | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-
-  async function fetchDiagnostics() {
-    setLoading(true);
-    setError(null);
-    try {
-      const res = await fetch("/api/diagnostics", { cache: "no-store" });
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      const json = (await res.json()) as DiagnosticsResponse;
-      setData(json);
-    } catch (e) {
-      setError(e instanceof Error ? e.message : "Failed to load diagnostics");
-    } finally {
-      setLoading(false);
-    }
-  }
-
-  useEffect(() => {
-    fetchDiagnostics();
-  }, []);
+  const { data, isLoading, error, refetch } = useQuery({
+    queryKey: ["diagnostics"],
+    queryFn: fetchDiagnostics,
+    staleTime: 30 * 1000, // 30 seconds
+  });
 
   const isAuthReady =
     data?.auth.configured &&
@@ -58,10 +47,10 @@ export function useDiagnostics() {
   const isAiReady = data?.ai.configured;
 
   return {
-    data,
-    loading,
-    error,
-    refetch: fetchDiagnostics,
+    data: data ?? null,
+    loading: isLoading,
+    error: error?.message ?? null,
+    refetch,
     isAuthReady: Boolean(isAuthReady),
     isAiReady: Boolean(isAiReady),
   };

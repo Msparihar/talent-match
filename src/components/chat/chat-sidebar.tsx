@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useMemo } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { SessionCard } from "./session-card";
@@ -49,16 +49,14 @@ export function ChatSidebar({
   isLoading = false,
 }: ChatSidebarProps) {
   const [searchQuery, setSearchQuery] = useState("");
-  const [filteredSessions, setFilteredSessions] = useState<Session[]>(sessions);
 
-  useEffect(() => {
+  const filteredSessions = useMemo(() => {
     if (!searchQuery.trim()) {
-      setFilteredSessions(sessions);
-      return;
+      return sessions;
     }
 
     const query = searchQuery.toLowerCase();
-    const filtered = sessions.filter((session) => {
+    return sessions.filter((session) => {
       const title = session.title?.toLowerCase() || "";
       const candidateName = session.candidateName?.toLowerCase() || "";
       const jobTitle = session.jobTitle?.toLowerCase() || "";
@@ -68,7 +66,6 @@ export function ChatSidebar({
         jobTitle.includes(query)
       );
     });
-    setFilteredSessions(filtered);
   }, [searchQuery, sessions]);
 
   const groupSessionsByDate = (sessions: Session[]) => {

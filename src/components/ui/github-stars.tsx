@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { Github } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -8,27 +8,19 @@ interface GitHubStarsProps {
   repo: string;
 }
 
+async function fetchGitHubStars(repo: string): Promise<number> {
+  const response = await fetch(`https://api.github.com/repos/${repo}`);
+  if (!response.ok) throw new Error("Failed to fetch");
+  const data = await response.json();
+  return data.stargazers_count;
+}
+
 export function GitHubStars({ repo }: GitHubStarsProps) {
-  const [stars, setStars] = useState<number | null>(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    async function fetchStars() {
-      try {
-        const response = await fetch(`https://api.github.com/repos/${repo}`);
-        if (response.ok) {
-          const data = await response.json();
-          setStars(data.stargazers_count);
-        }
-      } catch (error) {
-        console.error("Failed to fetch GitHub stars:", error);
-      } finally {
-        setLoading(false);
-      }
-    }
-
-    fetchStars();
-  }, [repo]);
+  const { data: stars, isLoading } = useQuery({
+    queryKey: ["github-stars", repo],
+    queryFn: () => fetchGitHubStars(repo),
+    staleTime: 5 * 60 * 1000, // 5 minutes
+  });
 
   const formatStars = (count: number) => {
     if (count >= 1000) {
@@ -46,7 +38,7 @@ export function GitHubStars({ repo }: GitHubStarsProps) {
         className="flex items-center gap-2"
       >
         <Github className="h-4 w-4" />
-        {loading ? "..." : stars !== null ? formatStars(stars) : "0"}
+        {isLoading ? "..." : stars !== undefined ? formatStars(stars) : "0"}
       </a>
     </Button>
   );

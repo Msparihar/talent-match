@@ -32,7 +32,7 @@ export default function ChatPage() {
   // Reset store when landing on new session page
   useEffect(() => {
     resetStore();
-  }, []);
+  }, [resetStore]);
 
   const handleCreateSession = async () => {
     if (!resume || !jobDescription) return;

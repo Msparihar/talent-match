@@ -4,7 +4,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { ArrowRight, Mail, BookOpen } from "lucide-react";
+import { ArrowRight, Sparkles } from "lucide-react";
 import { useSession } from "@/lib/auth-client";
 import { AuthDialog } from "@/components/auth/auth-dialog";
 
@@ -21,97 +21,140 @@ export function FinalCTA() {
   };
 
   return (
-    <section className="py-32 relative overflow-hidden">
-      {/* Background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-background to-purple-500/10" />
-      <motion.div
-        animate={{
-          scale: [1, 1.2, 1],
-          opacity: [0.3, 0.5, 0.3],
+    <section className="py-32 lg:py-40 relative overflow-hidden noise">
+      {/* Ambient glow */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px]">
+        <motion.div
+          animate={{
+            scale: [1, 1.1, 1],
+            opacity: [0.15, 0.25, 0.15],
+          }}
+          transition={{
+            duration: 8,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+          className="absolute inset-0 bg-primary/30 rounded-full blur-[150px]"
+        />
+        <motion.div
+          animate={{
+            scale: [1.1, 1, 1.1],
+            opacity: [0.1, 0.2, 0.1],
+          }}
+          transition={{
+            duration: 10,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 1,
+          }}
+          className="absolute inset-0 bg-accent/20 rounded-full blur-[120px] translate-x-20"
+        />
+      </div>
+
+      {/* Grid overlay */}
+      <div
+        className="absolute inset-0 opacity-[0.015]"
+        style={{
+          backgroundImage: `linear-gradient(rgba(255,255,255,.1) 1px, transparent 1px),
+                           linear-gradient(90deg, rgba(255,255,255,.1) 1px, transparent 1px)`,
+          backgroundSize: '80px 80px'
         }}
-        transition={{
-          duration: 8,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-br from-primary/20 to-purple-500/20 rounded-full blur-3xl"
       />
 
-      <div className="container mx-auto px-4 relative z-10">
+      <div className="container mx-auto px-6 md:px-8 lg:px-12 relative z-10">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center space-y-8 max-w-4xl mx-auto"
+          transition={{ duration: 0.8 }}
+          className="text-center max-w-4xl mx-auto"
         >
-          {/* Main headline */}
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight">
-            <span className="bg-gradient-to-r from-foreground via-foreground to-foreground/70 bg-clip-text text-transparent">
-              Start screening smarter today
-            </span>
-          </h2>
-
-          <p className="text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto">
-            {session
-              ? `Welcome back! Continue to your dashboard`
-              : `Join hundreds of recruiting teams using AI to find the perfect candidates faster`}
-          </p>
-
-          {/* CTA buttons */}
+          {/* Eyebrow */}
           <motion.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4"
+            className="flex items-center justify-center gap-4 mb-8"
+          >
+            <div className="h-px w-12 bg-primary" />
+            <span className="text-sm font-medium tracking-widest uppercase text-primary">
+              Get Started
+            </span>
+            <div className="h-px w-12 bg-primary" />
+          </motion.div>
+
+          {/* Headline */}
+          <h2 className="text-5xl md:text-6xl lg:text-7xl tracking-tight mb-8">
+            {session ? (
+              <>Welcome back</>
+            ) : (
+              <>
+                Ready to hire<br />
+                <span className="text-gradient-cyan">smarter?</span>
+              </>
+            )}
+          </h2>
+
+          <p className="text-xl md:text-2xl text-muted-foreground max-w-xl mx-auto mb-12">
+            {session
+              ? "Continue where you left off."
+              : "Join teams who've transformed their recruiting with AI-powered screening."}
+          </p>
+
+          {/* CTA */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.4 }}
+            className="flex flex-col sm:flex-row gap-4 justify-center items-center"
           >
             <Button
               onClick={handleGetStarted}
               disabled={isPending}
               size="lg"
-              className="text-lg px-8 py-6 group"
+              className="text-base px-10 py-7 group glow-cyan"
             >
-              {session ? "Go to Dashboard" : "Get Started Free"}
-              <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform ml-2" />
-            </Button>
-
-            <Button
-              asChild
-              variant="outline"
-              size="lg"
-              className="text-lg px-8 py-6"
-            >
-              <Link href="/chat" className="flex items-center gap-2">
-                <Mail className="h-5 w-5" />
-                Contact Sales
-              </Link>
+              <Sparkles className="h-4 w-4 mr-2" />
+              {session ? "Go to Dashboard" : "Start Free Trial"}
+              <ArrowRight className="h-4 w-4 ml-2 group-hover:translate-x-1 transition-transform" />
             </Button>
 
             <Button
               asChild
               variant="ghost"
               size="lg"
-              className="text-lg px-8 py-6"
+              className="text-base px-8 py-7 border border-border/50 hover:bg-card hover:border-primary/30"
             >
-              <Link href="#features" className="flex items-center gap-2">
-                <BookOpen className="h-5 w-5" />
-                View Documentation
+              <Link href="/chat">
+                Talk to Sales
               </Link>
             </Button>
           </motion.div>
 
-          {/* Additional info */}
+          {/* Trust line */}
           {!session && (
-            <motion.p
+            <motion.div
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
-              transition={{ delay: 0.4 }}
-              className="text-sm text-muted-foreground pt-8"
+              transition={{ delay: 0.6 }}
+              className="mt-12 flex flex-wrap justify-center gap-6 text-sm text-muted-foreground"
             >
-              No credit card required • 14-day free trial • Cancel anytime
-            </motion.p>
+              <span className="flex items-center gap-2">
+                <div className="w-1.5 h-1.5 rounded-full bg-primary" />
+                No credit card required
+              </span>
+              <span className="flex items-center gap-2">
+                <div className="w-1.5 h-1.5 rounded-full bg-primary" />
+                14-day free trial
+              </span>
+              <span className="flex items-center gap-2">
+                <div className="w-1.5 h-1.5 rounded-full bg-primary" />
+                Cancel anytime
+              </span>
+            </motion.div>
           )}
         </motion.div>
       </div>

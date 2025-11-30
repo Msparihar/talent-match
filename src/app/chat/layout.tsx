@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { ChatLayout } from "@/components/chat/chat-layout";
 import { CollapsibleSidebar } from "@/components/chat/collapsible-sidebar";
 import { ConfirmationModal } from "@/components/chat/confirmation-modal";
@@ -8,6 +8,7 @@ import { RenameSessionModal } from "@/components/chat/rename-session-modal";
 import { useSession } from "@/lib/auth-client";
 import { useRouter, usePathname } from "next/navigation";
 import { toast } from "sonner";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 
 interface Session {
   id: string;
@@ -22,6 +23,13 @@ interface Session {
   createdAt: Date;
 }
 
+async function fetchSessions(): Promise<Session[]> {
+  const response = await fetch("/api/sessions?limit=50");
+  if (!response.ok) throw new Error("Failed to fetch sessions");
+  const data = await response.json();
+  return data.sessions || [];
+}
+
 export default function ChatLayoutWrapper({
   children,
 }: {
@@ -30,13 +38,17 @@ export default function ChatLayoutWrapper({
   const { data: session } = useSession();
   const router = useRouter();
   const pathname = usePathname();
+  const queryClient = useQueryClient();
 
   // Extract active session ID from pathname
   const activeSessionId = pathname.match(/^\/chat\/([^/]+)$/)?.[1] || null;
 
-  // Session management state
-  const [sessions, setSessions] = useState<Session[]>([]);
-  const [sessionsLoading, setSessionsLoading] = useState(true);
+  // Fetch sessions with React Query
+  const { data: sessions = [], isLoading: sessionsLoading } = useQuery({
+    queryKey: ["sessions"],
+    queryFn: fetchSessions,
+    enabled: Boolean(session?.user),
+  });
 
   // Delete confirmation modal state
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
@@ -47,28 +59,6 @@ export default function ChatLayoutWrapper({
   const [renameModalOpen, setRenameModalOpen] = useState(false);
   const [sessionToRename, setSessionToRename] = useState<Session | null>(null);
   const [isRenaming, setIsRenaming] = useState(false);
-
-  // Fetch sessions on mount
-  useEffect(() => {
-    if (session?.user) {
-      fetchSessions();
-    }
-  }, [session?.user]);
-
-  const fetchSessions = async () => {
-    setSessionsLoading(true);
-    try {
-      const response = await fetch('/api/sessions?limit=50');
-      if (response.ok) {
-        const data = await response.json();
-        setSessions(data.sessions || []);
-      }
-    } catch (error) {
-      console.error('Error fetching sessions:', error);
-    } finally {
-      setSessionsLoading(false);
-    }
-  };
 
   const handleNewSession = () => {
     router.push('/chat');
@@ -96,8 +86,6 @@ export default function ChatLayoutWrapper({
         throw new Error('Failed to delete session');
       }
 
-      setSessions((prev) => prev.filter((s) => s.id !== sessionToDelete));
-
       // If the deleted session was the current one, go to new session
       if (activeSessionId === sessionToDelete) {
         handleNewSession();
@@ -107,7 +95,7 @@ export default function ChatLayoutWrapper({
         description: 'The session has been moved to the archive.',
       });
 
-      fetchSessions();
+      queryClient.invalidateQueries({ queryKey: ["sessions"] });
     } catch (error) {
       console.error('Error deleting session:', error);
       toast.error('Failed to delete session', {
@@ -132,10 +120,7 @@ export default function ChatLayoutWrapper({
         throw new Error('Failed to update session');
       }
 
-      setSessions((prev) =>
-        prev.map((s) => (s.id === sessionId ? { ...s, isPinned } : s))
-      );
-
+      queryClient.invalidateQueries({ queryKey: ["sessions"] });
       toast.success(isPinned ? 'Session pinned' : 'Session unpinned');
     } catch (error) {
       console.error('Error toggling pin:', error);
@@ -166,12 +151,7 @@ export default function ChatLayoutWrapper({
         throw new Error('Failed to rename session');
       }
 
-      setSessions((prev) =>
-        prev.map((s) =>
-          s.id === sessionToRename.id ? { ...s, title: newTitle } : s
-        )
-      );
-
+      queryClient.invalidateQueries({ queryKey: ["sessions"] });
       toast.success('Session renamed successfully');
       setRenameModalOpen(false);
       setSessionToRename(null);
